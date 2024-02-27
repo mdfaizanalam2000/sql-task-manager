@@ -4,11 +4,35 @@ nav button {
 }
 
 #carouselExampleIndicators img {
-    max-height: 70vh;
+    height: 60vh;
+}
+
+#root {
+    display: flex;
+    flex-flow: column nowrap;
+    min-height: 100vh;
+}
+
+.section {
+    flex: 1;
+}
+
+footer {
+    background-color: black;
+    color: white;
+    padding: 5px 0;
+}
+
+i {
+    cursor: pointer;
 }
 
 @media only screen and (max-width:992px) {
     nav button {
         position: static;
+    }
+
+    #carouselExampleIndicators img {
+        height: 60vh;
     }
 }

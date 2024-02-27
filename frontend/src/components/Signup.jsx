@@ -1,8 +1,15 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { toast } from "react-toastify"
 
 const Signup = () => {
     const navigate = useNavigate()
+
+    useEffect(() => {
+        if (localStorage.getItem("userid")) {
+            navigate("/dashboard")
+        }
+    })
 
     const [inputData, setInputData] = useState({
         userid: "",
@@ -19,7 +26,7 @@ const Signup = () => {
     const handleSignup = async (e) => {
         e.preventDefault()
         if (inputData.password !== inputData.cpassword) {
-            alert("Passwords are not matching")
+            toast("Passwords are not matching!")
             return
         }
         delete inputData.cpassword;
@@ -29,9 +36,9 @@ const Signup = () => {
         })
         const data = await response.json()
         if (data.message === "success") {
-            alert("Signup successful, Login to continue!")
+            toast("Signup successful, Login to continue!")
         } else {
-            alert("User already exists, please login!")
+            toast("User already exists, please login!")
         }
         navigate("/login")
     }
@@ -40,8 +47,8 @@ const Signup = () => {
         <div className="container">
             <form className='my-3' onSubmit={handleSignup}>
                 <div className="mb-3">
-                    <label htmlFor="userid" className="form-label">User ID</label>
-                    <input name="userid" onChange={handleOnChange} value={inputData.userid} required type="number" className="form-control" id="userid" />
+                    <label htmlFor="userid" className="form-label">User ID (3 digit unique ID)</label>
+                    <input max="999" name="userid" onChange={handleOnChange} value={inputData.userid} required type="number" className="form-control" id="userid" />
                 </div>
                 <div className="mb-3">
                     <label htmlFor="name" className="form-label">Name</label>

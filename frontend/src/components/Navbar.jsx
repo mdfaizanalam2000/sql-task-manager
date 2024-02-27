@@ -1,19 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useNavigate, Link } from 'react-router-dom'
+import { toast } from "react-toastify"
 
-const Navbar = () => {
+const Navbar = ({ loginStatus, setLoginStatus }) => {
     const navigate = useNavigate()
-    const [loginStatus, setLoginStatus] = useState(false)
-
-    useEffect(() => {
-        if (localStorage.getItem("userid")) {
-            setLoginStatus(true)
-        }
-    })
 
     const handleLogout = () => {
-        localStorage.removeItem("userid")
+        localStorage.clear()
         setLoginStatus(false)
+        toast("User logged out!")
         navigate("/login")
     }
 
@@ -31,7 +26,7 @@ const Navbar = () => {
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav">
                         <li className="nav-item">
-                            <Link className="nav-link active" aria-current="page" to="/">Home</Link>
+                            <Link className="nav-link" aria-current="page" to="/about">About</Link>
                         </li>
                     </ul>
                     {loginStatus && <button className='btn btn-danger' onClick={handleLogout}>Logout</button>}

@@ -23,10 +23,10 @@ class Server:
     def addTask(self,task):
         try:
             self.connect_to_server()
-            query=f"insert into task_manager values task_id={task['task_id']},user_id={task['user_id']},title ='{task['title']}',description ='{task['description']}',due_date='{task['due_date']}',status='{task['status']}'"
-
-            self.cursor.execute(query)
-            return {"message":"success, task created!"}
+            query=f"insert into task_manager values ({task['task_id']},{task['user_id']},'{task['title']}','{task['description']}','{task['due_date']}','{task['status']}')"
+            print(query)
+            self.cursor.execute(query).commit()
+            return {"message":"success"}
         except Exception as e:
             return {"message":str(e)}
         finally:
@@ -67,9 +67,8 @@ class Server:
         try:     
             self.connect_to_server()     
             query=f"update task_manager set title='{updated_task['title']}',description='{updated_task['description']}',due_date='{updated_task['due_date']}',status='{updated_task['status']}' where task_id={task_id}"
-
             self.cursor.execute(query).commit()
-            return {"message":"success, task updated!"}
+            return {"message":"success"}
         except Exception as e:
             return {"message":str(e)}
         finally:
@@ -82,7 +81,7 @@ class Server:
             query=f"delete from task_manager where task_id={task_id}"
 
             self.cursor.execute(query).commit()
-            return {"message":"task deleted successfully!"}
+            return {"message":"success"}
         except Exception as e:
             return {"message":str(e)}
         finally:

@@ -1,10 +1,18 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import slide1 from "../assets/slide1.jpg"
 import slide2 from "../assets/slide2.jpg"
 import slide3 from "../assets/slide3.jpg"
 
 const Homepage = () => {
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if (localStorage.getItem("userid")) {
+            navigate("/dashboard")
+        }
+    })
+
     return (
         <>
             <div id="carouselExampleIndicators" className="carousel slide">
@@ -33,7 +41,7 @@ const Homepage = () => {
                     <span className="visually-hidden">Next</span>
                 </button>
             </div>
-            <div className="container">
+            <div className="container my-3">
                 <h2 className="text-center">Hello and welcome to online task manager tool</h2>
                 <h4 className="text-center"><Link to="/login">Login</Link> or <Link to="/signup">Signup</Link> now to use the tool!</h4>
             </div>

@@ -37,7 +37,7 @@ server=Server()
 
 @app.post("/addTask")
 def root(task=Body()):
-   res=server.addTask(task)
+   res=server.addTask(json.loads(task))
    return res
 
 @app.get("/getAllTasks")
@@ -52,7 +52,7 @@ def root(task_id:int):
    
 @app.put("/updateTask")
 def root(task_id:int,updated_task=Body()):
-   res=server.updateTaskByID(task_id,updated_task)
+   res=server.updateTaskByID(task_id,json.loads(updated_task))
    return res
    
 @app.delete("/deleteTask")

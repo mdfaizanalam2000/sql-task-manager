@@ -1,8 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { toast } from "react-toastify"
 
-const Login = ({ setUserProfile }) => {
+const Login = ({ setLoginStatus }) => {
     const navigate = useNavigate()
+
+    useEffect(() => {
+        if (localStorage.getItem("userid")) {
+            navigate("/dashboard")
+        }
+    })
+
     const [userData, setUserData] = useState({
         userid: "",
         password: ""
@@ -18,10 +26,12 @@ const Login = ({ setUserProfile }) => {
         const data = await response.json()
         if (!data.message && userData.password === data[0].password) {
             localStorage.setItem("userid", userData.userid)
-            setUserProfile(data[0])
+            localStorage.setItem("username", data[0].name)
+            setLoginStatus(true)
+            toast("Logged in successfully!")
             navigate("/dashboard")
         } else {
-            alert("Invalid credentials");
+            toast("Invalid credentials!");
         }
     }
 
@@ -29,8 +39,8 @@ const Login = ({ setUserProfile }) => {
         <div className="container">
             <form className='my-3' onSubmit={handleLogin}>
                 <div className="mb-3">
-                    <label htmlFor="userid" className="form-label">User ID</label>
-                    <input required onChange={handleOnChange} value={userData.userid} name='userid' type="number" className="form-control" id="userid" />
+                    <label htmlFor="userid" className="form-label">User ID (3 digit unique ID)</label>
+                    <input max="999" required onChange={handleOnChange} value={userData.userid} name='userid' type="number" className="form-control" id="userid" />
                 </div>
                 <div className="mb-3">
                     <label htmlFor="password" className="form-label">Password</label>
