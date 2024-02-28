@@ -4,6 +4,7 @@ import { toast } from "react-toastify"
 
 const Login = ({ setLoginStatus }) => {
     const navigate = useNavigate()
+    const bcrypt = require("bcryptjs")
 
     useEffect(() => {
         if (localStorage.getItem("userid")) {
@@ -22,9 +23,10 @@ const Login = ({ setLoginStatus }) => {
 
     const handleLogin = async (e) => {
         e.preventDefault();
-        const response = await fetch(`http://127.0.0.1:8000/getUser?user_id=${userData.userid}`)
+        toast("Logging in...")
+        const response = await fetch(`https://sql-task-manager-backend.onrender.com/getUser?user_id=${userData.userid}`)
         const data = await response.json()
-        if (!data.message && userData.password === data[0].password) {
+        if (!data.message && await bcrypt.compare(userData.password, data[0].password)) {
             localStorage.setItem("userid", userData.userid)
             localStorage.setItem("username", data[0].name)
             setLoginStatus(true)
@@ -40,7 +42,7 @@ const Login = ({ setLoginStatus }) => {
             <form className='my-3' onSubmit={handleLogin}>
                 <div className="mb-3">
                     <label htmlFor="userid" className="form-label">User ID (3 digit unique ID)</label>
-                    <input max="999" required onChange={handleOnChange} value={userData.userid} name='userid' type="number" className="form-control" id="userid" />
+                    <input max="999" min="100" required onChange={handleOnChange} value={userData.userid} name='userid' type="number" className="form-control" id="userid" />
                 </div>
                 <div className="mb-3">
                     <label htmlFor="password" className="form-label">Password</label>

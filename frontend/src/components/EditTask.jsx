@@ -14,7 +14,7 @@ const EditTask = () => {
 
     useEffect(() => {
         const loadTask = async () => {
-            const response = await fetch(`http://127.0.0.1:8000/getTask?task_id=${localStorage.getItem("taskid")}`)
+            const response = await fetch(`https://sql-task-manager-backend.onrender.com/getTask?task_id=${localStorage.getItem("taskid")}`)
             const data = await response.json()
             setTask(data[0])
         }
@@ -27,7 +27,8 @@ const EditTask = () => {
 
     const handleSaveEdit = async (e) => {
         e.preventDefault()
-        const response = await fetch(`http://127.0.0.1:8000/updateTask?task_id=${task.task_id}`, {
+        toast("Saving changes...")
+        const response = await fetch(`https://sql-task-manager-backend.onrender.com/updateTask?task_id=${task.task_id}`, {
             method: "put",
             body: JSON.stringify(task)
         })

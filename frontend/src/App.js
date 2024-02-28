@@ -31,7 +31,7 @@ function App() {
             <Route path='/editTask' element={<EditTask />} />
           </Routes>
         </BrowserRouter>
-        <ToastContainer position="bottom-right" autoClose={500} theme="dark" />
+        <ToastContainer position="bottom-right" autoClose={300} theme="dark" />
       </div>
       <Footer />
     </>

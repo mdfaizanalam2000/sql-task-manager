@@ -20,7 +20,8 @@ const AddTask = () => {
 
     const handleCreateTask = async (e) => {
         e.preventDefault()
-        const response = await fetch("http://127.0.0.1:8000/addTask", {
+        toast("Creating new task...")
+        const response = await fetch("https://sql-task-manager-backend.onrender.com/addTask", {
             method: "post",
             body: JSON.stringify({ ...task, task_id: parseInt(task.task_id) })
         })
@@ -38,7 +39,7 @@ const AddTask = () => {
             <form className='my-3' onSubmit={handleCreateTask}>
                 <div className="mb-3">
                     <label htmlFor="task_id" className="form-label">Task ID (3 digit unique ID)</label>
-                    <input max="999" name="task_id" onChange={handleOnChange} value={task.task_id} required type="number" className="form-control" id="task_id" />
+                    <input max="999" min="100" name="task_id" onChange={handleOnChange} value={task.task_id} required type="number" className="form-control" id="task_id" />
                 </div>
                 <div className="mb-3">
                     <label htmlFor="title" className="form-label">Title</label>

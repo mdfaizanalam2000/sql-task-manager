@@ -1,6 +1,5 @@
 from server import Server
 from fastapi import FastAPI,Body
-from fastapi.security import HTTPBasic
 from fastapi.middleware.cors import CORSMiddleware
 import json
 
@@ -16,22 +15,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-# security = HTTPBasic()
 
 server=Server()
-
-# def authenticate_user(credentials: HTTPBasicCredentials = Depends(security)):
-#     correct_username = "john"
-#     correct_password = "test123"
- 
-#     if credentials.username != correct_username or credentials.password != correct_password:
-#         raise HTTPException(
-#             status_code=status.HTTP_401_UNAUTHORIZED,
-#             detail="Invalid credentials",
-#             headers={"WWW-Authenticate": "Basic"},
-#         )
- 
-#     return "authentic"
+server.connect_to_server()
 
 # ------------API ROUTES FOR HANDLING TASKS----------
 
@@ -79,7 +65,7 @@ def root():
     
 @app.put("/updateUser")
 def root(user_id:int,updated_user=Body()):
-   res=server.updateUserByID(user_id,updated_user)
+   res=server.updateUserByID(user_id,json.loads(updated_user))
    return res
     
 # API ROUTE TO FIND ALL TASKS OF A PARTICULAR USER

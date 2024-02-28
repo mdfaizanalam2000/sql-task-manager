@@ -1,0 +1,14 @@
+import React from 'react'
+
+const Spinner = () => {
+    return (
+        <div className="text-center my-5">
+            <span> Loading tasks...</span>
+            <div className="spinner-border" role="status">
+                <span className="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    )
+}
+
+export default Spinner

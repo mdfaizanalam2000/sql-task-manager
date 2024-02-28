@@ -4,6 +4,7 @@ import { toast } from "react-toastify"
 
 const Signup = () => {
     const navigate = useNavigate()
+    var bcrypt = require('bcryptjs');
 
     useEffect(() => {
         if (localStorage.getItem("userid")) {
@@ -29,10 +30,15 @@ const Signup = () => {
             toast("Passwords are not matching!")
             return
         }
+
         delete inputData.cpassword;
-        const response = await fetch("http://127.0.0.1:8000/addUser", {
+
+        const hashedPassword = await hashPassword(inputData.password)
+
+        toast("Signing up user...")
+        const response = await fetch("https://sql-task-manager-backend.onrender.com/addUser", {
             method: "post",
-            body: JSON.stringify({ ...inputData, userid: parseInt(inputData.userid) })
+            body: JSON.stringify({ ...inputData, userid: parseInt(inputData.userid), password: hashedPassword })
         })
         const data = await response.json()
         if (data.message === "success") {
@@ -43,12 +49,17 @@ const Signup = () => {
         navigate("/login")
     }
 
+    const hashPassword = async (password) => {
+        const hashedPassword = await bcrypt.hash(password, 10)
+        return hashedPassword
+    }
+
     return (
         <div className="container">
             <form className='my-3' onSubmit={handleSignup}>
                 <div className="mb-3">
                     <label htmlFor="userid" className="form-label">User ID (3 digit unique ID)</label>
-                    <input max="999" name="userid" onChange={handleOnChange} value={inputData.userid} required type="number" className="form-control" id="userid" />
+                    <input max="999" min="100" name="userid" onChange={handleOnChange} value={inputData.userid} required type="number" className="form-control" id="userid" />
                 </div>
                 <div className="mb-3">
                     <label htmlFor="name" className="form-label">Name</label>
@@ -59,7 +70,7 @@ const Signup = () => {
                     <input name="domain" onChange={handleOnChange} value={inputData.domain} required type="text" className="form-control" id="domain" />
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="password" className="form-label">Password</label>
+                    <label htmlFor="password" className="form-label">Choose Password</label>
                     <input name="password" onChange={handleOnChange} value={inputData.password} required type="password" className="form-control" id="password" />
                 </div>
                 <div className="mb-3">
