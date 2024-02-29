@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from "react-toastify"
 
-const Login = ({ setLoginStatus }) => {
+const Login = () => {
     const navigate = useNavigate()
     const bcrypt = require("bcryptjs")
+    const [, setLoginStatus] = useState(localStorage.getItem("userid"))
 
     useEffect(() => {
         if (localStorage.getItem("userid")) {
@@ -23,17 +24,16 @@ const Login = ({ setLoginStatus }) => {
 
     const handleLogin = async (e) => {
         e.preventDefault();
-        toast("Logging in...")
         const response = await fetch(`https://sql-task-manager-backend.onrender.com/getUser?user_id=${userData.userid}`)
         const data = await response.json()
         if (!data.message && await bcrypt.compare(userData.password, data[0].password)) {
             localStorage.setItem("userid", userData.userid)
             localStorage.setItem("username", data[0].name)
             setLoginStatus(true)
-            toast("Logged in successfully!")
+            toast.success("Logged in successfully!")
             navigate("/dashboard")
         } else {
-            toast("Invalid credentials!");
+            toast.error("Invalid credentials!");
         }
     }
 

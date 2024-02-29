@@ -42,9 +42,9 @@ const Signup = () => {
         })
         const data = await response.json()
         if (data.message === "success") {
-            toast("Signup successful, Login to continue!")
+            toast.success("Signup successful, Login to continue!")
         } else {
-            toast("User already exists, please login!")
+            toast.error("User already exists, please login!")
         }
         navigate("/login")
     }

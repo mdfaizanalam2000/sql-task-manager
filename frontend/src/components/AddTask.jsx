@@ -1,9 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom"
 import { toast } from 'react-toastify'
 
 const AddTask = () => {
     const navigate = useNavigate()
+
+    useEffect(() => {
+        if (!localStorage.getItem("userid")) {
+            navigate("/login")
+            return
+        }
+    })
 
     const [task, setTask] = useState({
         user_id: parseInt(localStorage.getItem("userid")),
@@ -27,10 +34,10 @@ const AddTask = () => {
         })
         const data = await response.json()
         if (data.message === "success") {
-            toast("Task created successfully!")
+            toast.success("Task created successfully!")
             navigate("/dashboard")
         } else {
-            toast("Oops, This task id is already assigned to someone!")
+            toast.error("Oops, This task id is already assigned to someone!")
         }
     }
 

@@ -13,6 +13,11 @@ const EditTask = () => {
     })
 
     useEffect(() => {
+        if (!localStorage.getItem("userid")) {
+            navigate("/login")
+            return
+        }
+        
         const loadTask = async () => {
             const response = await fetch(`https://sql-task-manager-backend.onrender.com/getTask?task_id=${localStorage.getItem("taskid")}`)
             const data = await response.json()
@@ -34,10 +39,10 @@ const EditTask = () => {
         })
         const data = await response.json()
         if (data.message === "success") {
-            toast("Changes saved!")
+            toast.success("Changes saved!")
             navigate("/dashboard")
         } else {
-            toast("Oops, Couldn't update task!")
+            toast.error("Oops, Couldn't update task!")
         }
     }
 

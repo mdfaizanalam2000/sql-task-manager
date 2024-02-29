@@ -1,4 +1,4 @@
-nav button {
+nav .btns {
     position: absolute;
     right: 2%;
 }
@@ -27,8 +27,15 @@ i {
     cursor: pointer;
 }
 
+.profile {
+    background-color: gray;
+    border-radius: 10px;
+    padding: 3%;
+    color: white;
+}
+
 @media only screen and (max-width:992px) {
-    nav button {
+    nav .btns {
         position: static;
     }
 
@@ -42,7 +49,8 @@ i {
 
     h2,
     h3,
-    h4 {
-        font-size:larger;
+    h4,
+    h5 {
+        font-size: larger;
     }
 }

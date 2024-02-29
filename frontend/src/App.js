@@ -11,27 +11,26 @@ import Footer from './components/Footer';
 import About from './components/About';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useState } from 'react';
+import MyProfile from './components/MyProfile';
 
 function App() {
-  const [loginStatus, setLoginStatus] = useState(localStorage.getItem("userid"))
-
   return (
     <>
       <div className='section'>
         <BrowserRouter>
-          <Navbar loginStatus={loginStatus} setLoginStatus={setLoginStatus} />
+          <Navbar />
           <Routes>
             <Route path='/' element={<Homepage />} />
             <Route path='/about' element={<About />} />
-            <Route path='/login' element={<Login setLoginStatus={setLoginStatus} />} />
+            <Route path='/login' element={<Login />} />
             <Route path='/signup' element={<Signup />} />
             <Route path='/dashboard' element={<Dashboard />} />
             <Route path='/addTask' element={<AddTask />} />
             <Route path='/editTask' element={<EditTask />} />
+            <Route path='/myProfile' element={<MyProfile />} />
           </Routes>
         </BrowserRouter>
-        <ToastContainer position="bottom-right" autoClose={300} theme="dark" />
+        <ToastContainer position="bottom-right" autoClose={1000} theme="dark" />
       </div>
       <Footer />
     </>

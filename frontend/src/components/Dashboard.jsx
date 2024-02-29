@@ -32,10 +32,10 @@ const Dashboard = () => {
         })
         const data = await response.json()
         if (data.message === "success") {
-            toast("Task deleted!")
+            toast.success("Task deleted!")
             setRefreshData(true)
         } else {
-            toast("Oops, Couldn't delete task")
+            toast.error("Oops, Couldn't delete task")
         }
     }
 
@@ -57,7 +57,7 @@ const Dashboard = () => {
         <>
             <div className="container">
                 <h3 className='text-center my-3'>Hello and welcome {localStorage.getItem("username")}</h3>
-                <h4 className='text-center my-3'>Find your list of tasks below:-</h4>
+                <h5 className='text-center my-3'>Find your list of tasks below:-</h5>
                 <div className="text-center">
                     <button onClick={() => navigate("/addTask")} className='btn btn-success'>Create new task</button>
                 </div>
