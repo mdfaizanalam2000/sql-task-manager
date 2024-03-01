@@ -26,10 +26,10 @@ def root(task=Body()):
    res=server.addTask(json.loads(task))
    return res
 
-@app.get("/getAllTasks")
-def root():
-    res=server.getAllTasks()
-    return res
+# @app.get("/getAllTasks")
+# def root():
+#     res=server.getAllTasks()
+#     return res
     
 @app.get("/getTask")
 def root(task_id:int):
@@ -58,14 +58,19 @@ def root(user_id:int):
     res=server.getUserByID(user_id)
     return res
     
-@app.get("/getAllUsers")
-def root():
-    res=server.getAllUsers()
-    return res
+# @app.get("/getAllUsers")
+# def root():
+#     res=server.getAllUsers()
+#     return res
     
 @app.put("/updateUser")
 def root(user_id:int,updated_user=Body()):
    res=server.updateUserByID(user_id,json.loads(updated_user))
+   return res
+
+@app.delete("/deleteUser")
+def root(user_id:int):
+   res=server.deleteUserByID(user_id)
    return res
     
 # API ROUTE TO FIND ALL TASKS OF A PARTICULAR USER

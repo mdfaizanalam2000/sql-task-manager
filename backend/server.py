@@ -37,18 +37,18 @@ class Server:
         #     self.cursor.close()
         #     print("Connection closed securely!")
         
-    def getAllTasks(self):
-        try:
-            # self.connect_to_server()
-            query="select * from task_manager"
+    # def getAllTasks(self):
+    #     try:
+    #         # self.connect_to_server()
+    #         query="select * from task_manager"
 
-            self.cursor.execute(query)
-            tasks=self.cursor.fetchall()
-            cname= [column[0] for column in self.cursor.description]
-            result=[dict(zip(cname,result)) for result in tasks]
-            return result
-        except Exception as e:
-            return {"message":str(e)}
+    #         self.cursor.execute(query)
+    #         tasks=self.cursor.fetchall()
+    #         cname= [column[0] for column in self.cursor.description]
+    #         result=[dict(zip(cname,result)) for result in tasks]
+    #         return result
+    #     except Exception as e:
+    #         return {"message":str(e)}
         # finally:
         #     self.cursor.close()
         #     print("Connection closed securely!")
@@ -125,18 +125,18 @@ class Server:
         #     self.cursor.close()
         #     print("Connection closed securely!")
         
-    def getAllUsers(self):
-        try:
-            # self.connect_to_server()
-            query="select * from user_data"
+    # def getAllUsers(self):
+    #     try:
+    #         # self.connect_to_server()
+    #         query="select * from user_data"
 
-            self.cursor.execute(query)
-            users=self.cursor.fetchall()
-            cname= [column[0] for column in self.cursor.description]
-            result=[dict(zip(cname,result)) for result in users]
-            return result
-        except Exception as e:
-            return {"message":str(e)}
+    #         self.cursor.execute(query)
+    #         users=self.cursor.fetchall()
+    #         cname= [column[0] for column in self.cursor.description]
+    #         result=[dict(zip(cname,result)) for result in users]
+    #         return result
+    #     except Exception as e:
+    #         return {"message":str(e)}
         # finally:
         #     self.cursor.close()
         #     print("Connection closed securely!")
@@ -148,6 +148,19 @@ class Server:
 
             self.cursor.execute(query)
             return {"message":"success, user updated!"}
+        except Exception as e:
+            return {"message":str(e)}
+        # finally:
+        #     self.cursor.close()
+        #     print("Connection closed securely!")
+
+    def deleteUserByID(self,user_id):
+        try:          
+            # self.connect_to_server()
+            query=f"delete from user_data where user_id={user_id}"
+
+            self.cursor.execute(query)
+            return {"message":"success"}
         except Exception as e:
             return {"message":str(e)}
         # finally:
