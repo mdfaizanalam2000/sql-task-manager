@@ -18,6 +18,7 @@ const MyProfile = () => {
             setUserProfile(data[0])
         }
         fetchProfile()
+        //eslint-disable-next-line
     }, [])
 
     const handleDeleteAccount = async () => {
@@ -31,7 +32,6 @@ const MyProfile = () => {
                 localStorage.clear()
                 navigate("/")
             } else {
-                console.log(data);
                 toast.error("You have atleast one active task")
             }
         }
@@ -44,7 +44,8 @@ const MyProfile = () => {
                     <p><b>User ID (3 digit unique ID):</b> {userProfile.user_id}</p>
                     <p><b>Name:</b> {userProfile.name}</p>
                     <p><b>Domain:</b> {userProfile.domain}</p>
-                    <button onClick={handleDeleteAccount} className="btn btn-danger">Delete Account Permanently <i className="bi bi-exclamation-triangle"></i></button>
+                    <button onClick={() => navigate("/editProfile")} className="btn btn-warning me-2 mb-2">Edit Profile</button>
+                    <button onClick={handleDeleteAccount} className="btn btn-danger mb-2">Delete Account Permanently <i className="bi bi-exclamation-triangle"></i></button>
                     <p><small>You cannot delete your account if you have any assigned task</small></p>
                 </div>
             }

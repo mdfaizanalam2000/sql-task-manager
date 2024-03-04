@@ -68,7 +68,8 @@ const AddTask = () => {
                         <option value="marked for review">Mark for review</option>
                     </select>
                 </div>
-                <button type="submit" className="btn btn-primary">Create Task</button>
+                <button type="submit" className="btn btn-success me-2">Create Task</button>
+                <button onClick={() => navigate("/dashboard")} type="reset" className="btn btn-danger">Cancel</button>
             </form>
         </div>
     )

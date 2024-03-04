@@ -27,7 +27,7 @@ const Signup = () => {
     const handleSignup = async (e) => {
         e.preventDefault()
         if (inputData.password !== inputData.cpassword) {
-            toast("Passwords are not matching!")
+            toast.error("Passwords are not matching!")
             return
         }
 

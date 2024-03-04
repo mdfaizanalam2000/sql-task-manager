@@ -17,13 +17,14 @@ const EditTask = () => {
             navigate("/login")
             return
         }
-        
+
         const loadTask = async () => {
             const response = await fetch(`https://sql-task-manager-backend.onrender.com/getTask?task_id=${localStorage.getItem("taskid")}`)
             const data = await response.json()
             setTask(data[0])
         }
         loadTask()
+        //eslint-disable-next-line
     }, [])
 
     const handleOnChange = (e) => {
@@ -73,7 +74,8 @@ const EditTask = () => {
                         <option value="marked for review">Mark for review</option>
                     </select>
                 </div>
-                <button type="submit" className="btn btn-primary">Save Changes</button>
+                <button type="submit" className="btn btn-primary me-2">Save Changes</button>
+                <button onClick={() => navigate("/dashboard")} type="reset" className="btn btn-danger">Cancel</button>
             </form>
         </div>
     )

@@ -12,6 +12,8 @@ import About from './components/About';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import MyProfile from './components/MyProfile';
+import EditProfile from './components/EditProfile';
+import ChangePassword from './components/ChangePassword';
 
 function App() {
   return (
@@ -28,6 +30,8 @@ function App() {
             <Route path='/addTask' element={<AddTask />} />
             <Route path='/editTask' element={<EditTask />} />
             <Route path='/myProfile' element={<MyProfile />} />
+            <Route path='/editProfile' element={<EditProfile />} />
+            <Route path='/updatePassword' element={<ChangePassword />} />
           </Routes>
         </BrowserRouter>
         <ToastContainer position="bottom-right" autoClose={1000} theme="dark" />

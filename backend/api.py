@@ -68,6 +68,11 @@ def root(user_id:int,updated_user=Body()):
    res=server.updateUserByID(user_id,json.loads(updated_user))
    return res
 
+@app.put("/updatePassword")
+def root(user_id:int,updated_password=Body()):
+   res=server.updateUserPasswordByID(user_id,json.loads(updated_password))
+   return res
+
 @app.delete("/deleteUser")
 def root(user_id:int):
    res=server.deleteUserByID(user_id)
