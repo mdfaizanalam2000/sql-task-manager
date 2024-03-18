@@ -40,6 +40,7 @@ const EditProfile = () => {
         const data = await response.json()
         if (data.message === "success") {
             toast.success("Changes saved!")
+            localStorage.setItem("username", user.name)
             navigate("/myProfile")
         } else {
             toast.error("Oops, Couldn't update user!")
